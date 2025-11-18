@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: mongodb
-          image: sowmya480/mongodb:v1
+          image: docker.io/sowmya480/mongodb:v1
           imagePullPolicy: Always
 ---
 apiVersion: v1
