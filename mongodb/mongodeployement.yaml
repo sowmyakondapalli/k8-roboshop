@@ -19,23 +19,21 @@ spec:
         project: roboshop
     spec:
       containers:
-        - name : mongodb
+        - name: mongodb
           image: sowmya480/mongodb:v1
           imagePullPolicy: Always
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
   name: mongoservice
   namespace: roboshop
 spec:
-  type: cluster-IP
+  type: ClusterIP
   selector:
     app: mongodb-db
     project: roboshop
   ports:
-   - protocol: TCP
+    - protocol: TCP
       port: 27017
       targetPort: 27017
