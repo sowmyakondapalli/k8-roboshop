@@ -18,6 +18,8 @@ spec:
         app: mongodb-db
         project: roboshop
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: mongodb
           image: docker.io/sowmya480/mongodb:v1
