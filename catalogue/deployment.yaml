@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue-app
+  namespace: roboshop
+data:
+  MONGO: "true"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue-app
+  namespace: roboshop
+  labels:
+    app: catalogue-app
+    project: roboshop
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: catalogue-app
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        app: catalogue-app
+        project: roboshop
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: mongodb
+          image: docker.io/sowmya480/mongodb:v1
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue-app
+  namespace: roboshop
+spec:
+  type: ClusterIP
+  selector:
+    app: catalogue-app
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+
+
