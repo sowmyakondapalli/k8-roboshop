@@ -12,16 +12,16 @@ spec:
     matchLabels:
       app: mongodb-db
       project: roboshop
-  templates:
+  template:
     metadata:
       labels:
         name: mongodb-db
         project: roboshop
   spec:
-  containers:
-    - name : mongodb
-      image: sowmya480/mongodb:v1
-      imagePullPolicy: Always
+    containers:
+      - name : mongodb
+        image: sowmya480/mongodb:v1
+        imagePullPolicy: Always
 
 ---
 
