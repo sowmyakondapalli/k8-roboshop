@@ -1,13 +1,16 @@
-FROM node:18
-
-EXPOSE 8080
+FROM node:20-alpine
 
 WORKDIR /opt/server
 
-COPY package.json /opt/server/
+# Copy package files first for better caching
+COPY package.json package-lock.json ./
 
-RUN npm install
+# Clean install based on lockfile
+RUN npm ci
 
-COPY server.js /opt/server/
+# Copy the application code
+COPY server.js .
+
+EXPOSE 8080
 
 CMD ["node", "server.js"]
