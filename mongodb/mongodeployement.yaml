@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: roboshop
+  labels:
+    app: mongodb-db
+    project: roboshop
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongodb-db
+      project: roboshop
+  templates:
+    metadata:
+      labels:
+        name: mongodb-db
+        project: roboshop
+  spec:
+  containers:
+    - name : mongodb
+      image: sowmya480/mongodb:v1
+      imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongoservice
+  namespace: roboshop
+spec:
+  type: cluster-IP
+  selector:
+    app: mongodb-db
+    project: roboshop
+  ports:
+   - protocol: TCP
+      port: 27017
+      targetPort: 27017
