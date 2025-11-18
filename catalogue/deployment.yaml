@@ -31,8 +31,8 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
-        - name: mongodb
-          image: docker.io/sowmya480/mongodb:v1
+        - name: catalogue
+          image: docker.io/sowmya480/catalogue:v1
           imagePullPolicy: Always
 ---
 apiVersion: v1
