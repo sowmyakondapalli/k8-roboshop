@@ -7,7 +7,6 @@ metadata:
     app: mongodb-db
     project: roboshop
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: mongodb-db

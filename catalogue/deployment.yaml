@@ -17,7 +17,6 @@ metadata:
     app: catalogue-app
     project: roboshop
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: catalogue-app
