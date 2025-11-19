@@ -1,10 +1,7 @@
-FROM node:18.19.1-alpine3.19
+FROM node:18
 EXPOSE 8080
-RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
 WORKDIR /opt/server
-RUN chown roboshop:roboshop /opt/server
-USER roboshop
 COPY package.json /opt/server/
-COPY server.js /opt/server/
 RUN npm install
+COPY server.js /opt/server/
 CMD ["node", "server.js"]
