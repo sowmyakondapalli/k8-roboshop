@@ -1,17 +1,10 @@
-FROM node:20-alpine
-
-WORKDIR /opt/server
-
-# Copy package files first for better caching
-
-COPY package.json /opt/server/
-
-# Clean install based on lockfile
-RUN npm ci
-
-# Copy the application code
-COPY server.js /opt/server/
-
+FROM node:18.19.1-alpine3.19
 EXPOSE 8080
-
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+WORKDIR /opt/server
+RUN chown roboshop:roboshop /opt/server
+USER roboshop
+COPY package.json /opt/server/
+COPY server.js /opt/server/
+RUN npm install
 CMD ["node", "server.js"]
