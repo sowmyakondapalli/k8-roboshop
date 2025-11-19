@@ -4,10 +4,12 @@ metadata:
   name: catalogue-app
   namespace: roboshop
 data:
-  MONGO: "true"
+  # make the app connect to the MongoDB service in the roboshop namespace
+  MONGO_URL: "mongodb://mongoservice:27017/catalogue"
+  # optional: explicitly set port (app defaults to 8080 anyway)
+  CATALOGUE_SERVER_PORT: "8080"
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,6 +19,7 @@ metadata:
     app: catalogue-app
     project: roboshop
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: catalogue-app
@@ -33,6 +36,9 @@ spec:
         - name: catalogue
           image: docker.io/sowmya480/catalogue:v1
           imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: catalogue-app
 ---
 apiVersion: v1
 kind: Service
@@ -48,6 +54,3 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-
-
-
